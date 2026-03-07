@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const About = () => {
 
   return (
@@ -8,7 +9,7 @@ const About = () => {
       {/* Banner */}
       <div className="relative h-[520px] -mx-6 mb-16">
         <img
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80"
+          src="/images/maggie.jpg"
           alt="Restaurant"
           className="w-full h-full object-cover brightness-75"
         />
