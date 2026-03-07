@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "image": "/images/maggie.jpg",
+    "title": "Paneer Butter Masala",
+    "description": "Creamy and rich North Indian curry.",
+    "price": 249,
+    "category": "Veg"
+  },
+  {
+    "id": 2,
+    "image": "/images/maggie.jpg",
+    "title": "Chicken Curry",
+    "description": "Spicy and flavorful traditional curry.",
+    "price": 299,
+    "category": "Nonveg"
+  },
+  {
+    "id": 3,
+    "image": "/images/chai.jpg",
+    "title": "Chicken Curry",
+    "description": "Spicy and flavorful traditional curry.",
+    "price": 299,
+    "category": "Nonveg"
+  },
+  {
+    "id": 4,
+    "image": "/images/maggie.jpg",
+    "title": "Chicken Curry",
+    "description": "Spicy and flavorful traditional curry.",
+    "price": 299,
+    "category": "Nonveg"
+  }
+]
