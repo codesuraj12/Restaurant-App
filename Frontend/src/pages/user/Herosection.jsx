@@ -30,19 +30,11 @@ console.log("working")
 
     useEffect(() => {
 
-        const fetchfood = async () => {
-            try {
-                const res = await axios.get("http://localhost:5000/api/food")
-                setFoods(res.data)
-                setLoading(false)
-            } catch (error) {
-                console.error(error)
-                setLoading(true)
-            }
+const timer = setTimeout(() => {
+    setLoading(false);
+  }, 1500);
 
-        }
-        fetchfood()
-
+  return () => clearTimeout(timer) //cleanup 
     }, [])
 
     return (
@@ -160,7 +152,7 @@ console.log("working")
                                 Array(4).fill().map((_, i) => <Skeleton key={i} />)
                             ) :
                                 (Carddata.map((food) => (
-                                    <Card key={food._id}
+                                    <Card key={food.id}
                                        food={food}
                                        handleOrder={handleOrder}
                                     />
