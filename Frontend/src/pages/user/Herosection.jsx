@@ -1,12 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import Carddata from '../../data.json'
-
+import axios from 'axios'
+import Skeleton from '../../Skeleton'
 import Heroimg from '../../assets/herosection.jpg'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Herosection = () => {
 
+    const navigate = useNavigate()
+    const [foods, setFoods] = useState([])  //yha pe backend se food store karenge
 
+    const [loading, setLoading] = useState(true)
+
+
+const handleOrder = ()=>{
+const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Please login first");
+    navigate("/login");   // 👉 change route if different
+    return;
+  }
+
+  navigate("/foods")
+console.log("working")
+}
+
+    useEffect(() => {
+
+        const fetchfood = async () => {
+            try {
+                const res = await axios.get("http://localhost:5000/api/food")
+                setFoods(res.data)
+                setLoading(false)
+            } catch (error) {
+                console.error(error)
+                setLoading(true)
+            }
+
+        }
+        fetchfood()
+
+    }, [])
 
     return (
         <div>
@@ -32,7 +69,7 @@ const Herosection = () => {
                     </h1>
 
                     <p className="text-xl text-white leading-tight">Freshly prepared meals delivered to your doorstep in minutes — fast, hot, and full of flavor.</p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
 
                         <button className="px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg shadow-md hover:bg-blue-50 hover:shadow-emerald-400 transition duration-200">
                             Reserve a Table
@@ -44,61 +81,61 @@ const Herosection = () => {
                         </button>
                     </div>
 
-                   
+
                 </div>
 
             </div>
 
 
-<section className="relative py-20 bg-gradient-to-r from-amber-50 via-white to-amber-50">
+            <section className="relative py-20 bg-gradient-to-r from-amber-50 via-white to-amber-50">
 
-  <div className="max-w-6xl mx-auto px-6">
+                <div className="max-w-6xl mx-auto px-6">
 
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
-      {/* Stat Card */}
-      <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-        <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
-          25+
-        </h3>
-        <p className="text-gray-600 tracking-widest text-sm">
-          YEARS OF FLAVOR
-        </p>
-      </div>
+                        {/* Stat Card */}
+                        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
+                            <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
+                                25+
+                            </h3>
+                            <p className="text-gray-600 tracking-widest text-sm">
+                                YEARS OF FLAVOR
+                            </p>
+                        </div>
 
-      <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-        <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
-          120
-        </h3>
-        <p className="text-gray-600 tracking-widest text-sm">
-          DISHES ON MENU
-        </p>
-      </div>
+                        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
+                            <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
+                                120
+                            </h3>
+                            <p className="text-gray-600 tracking-widest text-sm">
+                                DISHES ON MENU
+                            </p>
+                        </div>
 
-      <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-        <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
-          4.9
-        </h3>
-        <p className="text-gray-600 tracking-widest text-sm">
-          AVERAGE RATING
-        </p>
-      </div>
+                        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
+                            <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
+                                4.9
+                            </h3>
+                            <p className="text-gray-600 tracking-widest text-sm">
+                                AVERAGE RATING
+                            </p>
+                        </div>
 
-      <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-        <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
-          3★
-        </h3>
-        <p className="text-gray-600 tracking-widest text-sm">
-          AWARD WINS
-        </p>
-      </div>
+                        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
+                            <h3 className="text-5xl font-extrabold text-orange-600 mb-3">
+                                3★
+                            </h3>
+                            <p className="text-gray-600 tracking-widest text-sm">
+                                AWARD WINS
+                            </p>
+                        </div>
 
-    </div>
+                    </div>
 
-  </div>
+                </div>
 
-</section>
-            
+            </section>
+
 
             <section>
 
@@ -117,18 +154,32 @@ const Herosection = () => {
 
                     <div className='flex gap-4 py-6 flex-wrap'>
 
-                        {Carddata.map((cardobj) => (
-                            <Card key={cardobj.id}
-                                image={cardobj.image}
-                                title={cardobj.title}
-                                description={cardobj.description}
-                                price={cardobj.price}
-                                category={cardobj.category}
-                            />
-                        ))}
+                        {
+
+                            loading ? (
+                                Array(4).fill().map((_, i) => <Skeleton key={i} />)
+                            ) :
+                                (Carddata.map((food) => (
+                                    <Card key={food._id}
+                                       food={food}
+                                       handleOrder={handleOrder}
+                                    />
+                                ))
+                                )
+                        }
 
                     </div>
+
+<div className="mt-6">
+                    <Link to="/foods">
+                        <button className="px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition">
+                            View More
+                        </button>
+                    </Link>
                 </div>
+
+                </div>
+                
 
             </section>
 
@@ -136,7 +187,7 @@ const Herosection = () => {
 
             <section>
 
-                <div className="bg-amber-50 py-20 px-6">
+                <div className="bg-stone-50 py-20 px-6">
 
                     <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
@@ -185,7 +236,7 @@ const Herosection = () => {
 
 
             <section>
-                <div className="bg-white py-20 px-6">
+                <div className="bg-amber-50 py-20 px-6">
 
                     <div className="max-w-6xl mx-auto text-center">
 
@@ -202,7 +253,7 @@ const Herosection = () => {
                         <div className="grid md:grid-cols-3 gap-8">
 
                             {/* Card 1 */}
-                            <div className="bg-amber-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+                            <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
                                 <p className="text-gray-600 mb-4">
                                     “Absolutely loved the food! The flavors were authentic and the
                                     ambience was so warm and welcoming.”
@@ -212,7 +263,7 @@ const Herosection = () => {
                             </div>
 
                             {/* Card 2 */}
-                            <div className="bg-amber-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+                            <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
                                 <p className="text-gray-600 mb-4">
                                     “Best paneer dish I’ve had in a long time. Service was quick and
                                     the staff was very friendly.”
@@ -222,7 +273,7 @@ const Herosection = () => {
                             </div>
 
                             {/* Card 3 */}
-                            <div className="bg-amber-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
+                            <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
                                 <p className="text-gray-600 mb-4">
                                     “A perfect place for family dinners. Great food, great vibe,
                                     and reasonable pricing.”
@@ -240,7 +291,7 @@ const Herosection = () => {
 
 
             <section>
-                <div className="bg-amber-50 py-20 px-6">
+                <div className="bg-stone-50 py-20 px-6">
 
                     <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-10">
 
@@ -295,10 +346,10 @@ const Herosection = () => {
 
                 </div>
             </section>
-          
 
 
-           
+
+
 
 
 

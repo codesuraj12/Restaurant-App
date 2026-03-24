@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import {  useNavigate } from 'react-router-dom';
 import { easeOut, motion } from "framer-motion";
+import axios from 'axios';
 
 const Login = () => {
  const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const Login = () => {
 
 const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -19,15 +20,28 @@ const navigate = useNavigate()
       return;
     }
 
-    setError("");
+try {
+  
+const res = await axios.post("http://localhost:5000/api/auth/login",
+  { email , password}
+)
+console.log(res.data)
+ // save token
+    localStorage.setItem("token", res.data.token);
 
-    // You can add login API call here
-    console.log("Login Data:", { email, password });
+    alert("Login successful");
+    
+    navigate("/");
+    setEmail('');
+      setPassword('');
 
-    alert("Login successful (demo)");
+} catch (error) {
+     console.log(error.response?.data);
+    setError("Invalid credentials");
+}
 
-    setEmail("");
-     setPassword("");
+
+ 
   };
 
   return (

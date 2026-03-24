@@ -1,67 +1,89 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion';
+import axios from 'axios'
+
+
 
 const Register = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [error,setError] = useState("")
-const [formdata, setFormdata] = useState({
-    name : "",
-    email:"",
-    password : "",
-    confirmpassword :"",
-   
-})
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [formdata, setFormdata] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
 
-const handlechange =(e)=>{
-setFormdata({
-    ...formdata,
-    [e.target.name] : e.target.value
-})
-}
+  })
 
-  const handleSubmit = (e) => {
+  const handlechange = (e) => {
+    setFormdata({
+      ...formdata,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
- const { name, email, password, confirmpassword } = formdata;
+    const { name, email, password, confirmpassword } = formdata;
 
     if (!name || !email || !password || !confirmpassword) {
       setError("All fields are required");
       return;
     }
+if (!email.includes("@")) {
+  setError("Enter valid email");
+  return;
+}
+
     if (password !== confirmpassword) {
       setError("Passwords do not match");
       return;
     }
 
-    setError("");
+    setLoading(true)
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        name, email, password
+      })
+      setLoading(false);
+      console.log(res.data)
 
-    // You can integrate API here
-    console.log("Register Data:", { name, email, password });
+      setError("");
+      alert("User Registered Successfully")
 
-    alert("Registration successful (demo)");
 
-    setFormdata({
-name: "",
-password :"",
-email : "",
-confirmpassword : ""
-    })
-   
+      setFormdata({
+        name: "",
+        password: "",
+        email: "",
+        confirmpassword: ""
+      })
 
-    navigate("/login");
+      navigate("/login");
+
+    } catch (error) {
+      const message = error.response?.data?.message || "Registration failed";
+      setError(message);
+    }
+
+
+
+
   };
 
   return (
-  
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <motion.div 
-      initial={{opacity:0, y:40}}
-      animate ={{opacity:1, y:0}}
-      transition={{duration:0.6,ease: "easeOut"}}
-      
 
-      className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+
+
+        className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8">
         <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,7 +104,7 @@ confirmpassword : ""
             <input
               type="email"
               name='email'
-                 value={formdata.email}
+              value={formdata.email}
               onChange={handlechange}
               className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
@@ -95,7 +117,7 @@ confirmpassword : ""
               type="password"
               name='password'
               value={formdata.password}
-              onChange={ handlechange}
+              onChange={handlechange}
               className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter password"
             />
@@ -107,7 +129,7 @@ confirmpassword : ""
               type="password"
               name='confirmpassword'
               value={formdata.confirmpassword}
-               onChange={handlechange}
+              onChange={handlechange}
               className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Confirm password"
             />
@@ -120,14 +142,14 @@ confirmpassword : ""
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            
+
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 rounded-xl shadow-md"
           >
-            Register
+           {loading ? "Registering..." : "Register"}
           </motion.button>
         </form>
- <p className="text-center text-sm mt-4">
+        <p className="text-center text-sm mt-4">
           Already have an account?
           <span
             onClick={() => navigate("/login")}
@@ -136,7 +158,7 @@ confirmpassword : ""
             Login here
           </span>
         </p>
-        </motion.div>
+      </motion.div>
     </div>
   )
 }

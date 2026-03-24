@@ -14,7 +14,9 @@ function App() {
       <div className=' text-white'
   >
    <Header/>
+   <main >
   <Outlet/>
+  </main>
   <Footer/>
   </div>
     </>
