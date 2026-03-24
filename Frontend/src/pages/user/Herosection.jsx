@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import Carddata from '../../data.json'
-import axios from 'axios'
 import Skeleton from '../../Skeleton'
 import Heroimg from '../../assets/herosection.jpg'
 import { Link } from 'react-router-dom'
@@ -10,7 +9,6 @@ import { useNavigate } from 'react-router-dom'
 const Herosection = () => {
 
     const navigate = useNavigate()
-    const [foods, setFoods] = useState([])  //yha pe backend se food store karenge
 
     const [loading, setLoading] = useState(true)
 
