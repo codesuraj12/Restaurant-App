@@ -6,7 +6,10 @@ export const protect = async(req,res,next) =>{
 try {
 
     let token ;
-    if(req.headers.authorization && req.headers.stratsWith("Bearer")){
+    console.log("HEADER:", req.headers.authorization);  // 🔍
+    console.log("COOKIE:", req.cookies);
+
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
         token = req.headers.authorization.split(" ")[1];  // Frontend request bhejta hai with token usmese sirf token store krte he
     }
       if (!token) {
