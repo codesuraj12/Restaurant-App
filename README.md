@@ -1,4 +1,4 @@
-Restaurant App
+## Restaurant App
 Overview
 
 This is a full-stack Restaurant Web Application built using React for the frontend and Node.js with Express for the backend. The application allows users to explore menu items, register/login, and place orders, while the admin can manage food items through a protected dashboard.
