@@ -31,8 +31,10 @@ Add food items
 Manage food (view/delete/update)
 Access protected dashboard
 
-### Frontend
 
+### Frontend Structure
+
+```
 src
 ├─ components
 ├─ pages
@@ -52,30 +54,33 @@ src
 ├─ Skeleton.jsx
 ├─ App.jsx
 └─ main.jsx
+```
 
-### Backend
+### Backend Structure
 
+```id="j9s2kd"
 backend
 ├─ config
-│ └─ db.js
+│   └─ db.js
 ├─ models
-│ ├─ User.js
-│ ├─ Food.js
-│ └─ Order.js
+│   ├─ User.js
+│   ├─ Food.js
+│   └─ Order.js
 ├─ controllers
-│ ├─ authController.js
-│ ├─ foodController.js
-│ └─ orderController.js
+│   ├─ authController.js
+│   ├─ foodController.js
+│   └─ orderController.js
 ├─ routes
-│ ├─ authRoutes.js
-│ ├─ foodRoutes.js
-│ └─ orderRoutes.js
+│   ├─ authRoutes.js
+│   ├─ foodRoutes.js
+│   └─ orderRoutes.js
 ├─ middleware
-│ ├─ authMiddleware.js
-│ └─ adminMiddleware.js
+│   ├─ authMiddleware.js
+│   └─ adminMiddleware.js
 ├─ services
-│ └─ email.service.js
+│   └─ email.service.js
 └─ server.js
+```
 
 ## Working
 1. Backend Setup
