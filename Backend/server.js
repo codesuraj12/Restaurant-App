@@ -18,8 +18,8 @@ app.use(express.json()) //incoming request ke JSON data ko read karne ke liye us
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(cors({
-  origin: FRONTEND_URL,
-  credentials: true
+  origin: FRONTEND_URL
+
 }))
 
 app.use(cookieParser())  //ye cookie hum authcontroller me use krenge
