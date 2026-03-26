@@ -12,13 +12,15 @@ import cookieParser from 'cookie-parser'
 
 dotenv.config()  //ye .env file ko nodejs me read krne ke liye aur variable ko process.env me store krta he
 
-
-
 const app = express()
 
 app.use(express.json()) //incoming request ke JSON data ko read karne ke liye use hota hai.ye sbse pehle lena he app.use me
 
-app.use(cors())
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}))
 
 app.use(cookieParser())  //ye cookie hum authcontroller me use krenge
 

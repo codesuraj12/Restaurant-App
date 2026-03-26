@@ -12,7 +12,7 @@ dotenv.config()
  * tokens generate karna
  */
 
-console.log("REFRESH:", process.env.REFRESH_TOKEN);
+
 
 const oAuth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
