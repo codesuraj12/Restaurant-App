@@ -2,7 +2,7 @@ import React from 'react'
 
 const Card = ({ food, handleOrder }) => {
 
-console.log(food)
+
 
   if (!food) return null;
   
