@@ -50,7 +50,7 @@ if (!email.includes("@")) {
       const res = await axios.post(`${API_URL}/api/auth/register`, {
         name, email, password
       })
-      setLoading(false);
+
       console.log(res.data)
 
       setError("");
@@ -69,7 +69,9 @@ if (!email.includes("@")) {
     } catch (error) {
       const message = error.response?.data?.message || "Registration failed";
       setError(message);
-    }
+    }finally {
+    setLoading(false); // ✅ ALWAYS runs
+  }
 
 
 
