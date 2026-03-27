@@ -20,14 +20,17 @@ const [food, setFood] = useState({
     });
   };
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const handleSubmit = async(e) => {
     e.preventDefault();
 
 
 try {
   
+
 const res = await axios.post(          //axios.post(url, data, config)  yha food data send hoga with config ke sath
-  "http://localhost:5000/api/food",
+  `${API_URL}/api/food`,
   food,
   {
     headers:{

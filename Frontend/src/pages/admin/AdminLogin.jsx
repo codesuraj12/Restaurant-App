@@ -33,9 +33,11 @@ const handleSubmit = async(e)=>{
     return
   }
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   try {
     
-const res = await axios.post("http://localhost:5000/api/auth/login",
+const res = await axios.post(`${API_URL}/api/auth/login`,
   {email,password}
 )
 
