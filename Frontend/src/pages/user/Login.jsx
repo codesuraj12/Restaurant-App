@@ -33,7 +33,7 @@ const res = await axios.post(`${API_URL}/api/auth/login`,
 
     alert("Login successful");
     
-    navigate("/");
+    navigate("/foods");
     setEmail('');
       setPassword('');
 

@@ -25,9 +25,9 @@ const router = createBrowserRouter(
       <Route path='/register' element={<Register />} />
       <Route path='/' element={<App />}>
         <Route index element={<Herosection />}></Route>
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/foods' element={<Foodcards />} />
+        <Route path='about' element={<About />} />
+        <Route path='contact' element={<Contact />} />
+        <Route path='foods' element={<Foodcards />} />
       </Route>
 
       <Route path='/admin' element={<AdminLogin />}></Route>
