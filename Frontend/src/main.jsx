@@ -14,6 +14,7 @@ import Maindashboard from './pages/admin/Maindashboard.jsx'
 import Addfood from './pages/admin/Addfood.jsx'
 import Managefood from './pages/admin/Managefood.jsx'
 import Foodcards from './pages/user/Foodcards.jsx'
+import Adminroute from './pages/admin/ProtectedAdmin.jsx'
 
 
 
@@ -32,7 +33,11 @@ const router = createBrowserRouter(
 
       <Route path='/admin' element={<AdminLogin />}></Route>
 
-      <Route path='/admindashboard' element={<Dashboard />} >
+      <Route path='/admindashboard' element={
+        <Adminroute>
+        <Dashboard /> 
+        </Adminroute>} >
+          <Route index element={<Maindashboard />} />
         <Route path='dashboard' element={<Maindashboard />} />
         <Route path='add-food' element={<Addfood />} />
         <Route path='manage-food' element={<Managefood />} />

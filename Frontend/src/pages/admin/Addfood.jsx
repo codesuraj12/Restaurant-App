@@ -13,6 +13,8 @@ const [food, setFood] = useState({
     description: ""
   });
 
+  const [error, setError] = useState("")
+
   const handleChange = (e) => {
     setFood({
       ...food,
@@ -54,6 +56,8 @@ alert("Food added successfully");
 } catch (error) {
   
 console.log(error.response?.data || error.message)
+setError(error.message)
+
 }
 
 };
