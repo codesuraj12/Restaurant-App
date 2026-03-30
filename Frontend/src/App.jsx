@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <div className=' text-white'
+      <div 
   >
    <Header/>
    <main >

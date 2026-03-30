@@ -5,6 +5,7 @@ import Skeleton from '../../Skeleton'
 import Heroimg from '../../assets/herosection.jpg'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Herosection = () => {
 
@@ -13,26 +14,26 @@ const Herosection = () => {
     const [loading, setLoading] = useState(true)
 
 
-const handleOrder = ()=>{
-const token = localStorage.getItem("token");
+    const handleOrder = () => {
+        const token = localStorage.getItem("token");
 
-  if (!token) {
-    alert("Please login first");
-    navigate("/login");   // 👉 change route if different
-    return;
-  }
+        if (!token) {
+            alert("Please login first");
+            navigate("/login");   // 👉 change route if different
+            return;
+        }
 
-  navigate("/foods")
-console.log("working")
-}
+        navigate("/foods")
+        console.log("working")
+    }
 
     useEffect(() => {
 
-const timer = setTimeout(() => {
-    setLoading(false);
-  }, 1500);
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1500);
 
-  return () => clearTimeout(timer) //cleanup 
+        return () => clearTimeout(timer) //cleanup 
     }, [])
 
     return (
@@ -61,14 +62,32 @@ const timer = setTimeout(() => {
                     <p className="text-xl text-white leading-tight">Freshly prepared meals delivered to your doorstep in minutes — fast, hot, and full of flavor.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
 
-                        <button className="px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg shadow-md hover:bg-blue-50 hover:shadow-emerald-400 transition duration-200">
-                            Reserve a Table
-                        </button>
+                        <motion.button
+                            whileHover={{
 
-                        <button className="px-6 py-3 border-2 border-white text-white font-semibold rounded-lg  hover:text-emerald-100 
-  transition duration-200">
+                                y: -3,
+                                boxShadow: "0px 8px 20px rgba(255, 165, 0, 0.4)"
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            className="px-6 py-3 bg-white text-orange-600 cursor-pointer font-semibold rounded-lg shadow-md transition duration-200"
+                        >
+                            Reserve a Table
+                        </motion.button>
+
+                        <motion.button
+                            whileHover={{
+                               
+                                y: -3,
+                                backgroundColor: "rgba(255,255,255,0.5)",
+                                color: "rgba(0,0,0,0.8)"
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            className="px-6 py-3 border-2 border-white text-white cursor-pointer font-semibold rounded-lg transition duration-200"
+                        >
                             Explore Menu
-                        </button>
+                        </motion.button>
                     </div>
 
 
@@ -81,7 +100,13 @@ const timer = setTimeout(() => {
 
                 <div className="max-w-6xl mx-auto px-6">
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 60 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ once: true }}
+
+                        className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
                         {/* Stat Card */}
                         <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
@@ -120,7 +145,7 @@ const timer = setTimeout(() => {
                             </p>
                         </div>
 
-                    </div>
+                    </motion.div>
 
                 </div>
 
@@ -151,8 +176,8 @@ const timer = setTimeout(() => {
                             ) :
                                 (Carddata.map((food) => (
                                     <Card key={food.id}
-                                       food={food}
-                                       handleOrder={handleOrder}
+                                        food={food}
+                                        handleOrder={handleOrder}
                                     />
                                 ))
                                 )
@@ -160,16 +185,20 @@ const timer = setTimeout(() => {
 
                     </div>
 
-<div className="mt-6">
-                    <Link to="/foods">
-                        <button className="px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition">
-                            View More
-                        </button>
-                    </Link>
-                </div>
+                    <div className="mt-6">
+                        <Link to="/foods">
+                            <motion.button
+                                whileHover={{ y: 2 }}
+                            >
+                                <button className="px-6 py-3 bg-amber-600 text-white rounded-lg cursor-pointer hover:bg-amber-700 transition">
+                                    View More
+                                </button>
+                            </motion.button>
+                        </Link>
+                    </div>
 
                 </div>
-                
+
 
             </section>
 
