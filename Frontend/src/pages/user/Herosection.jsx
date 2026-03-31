@@ -77,10 +77,10 @@ const Herosection = () => {
 
                         <motion.button
                             whileHover={{
-                               
+
                                 y: -3,
                                 backgroundColor: "rgba(255,255,255,0.5)",
-                                color: "rgba(0,0,0,0.8)"
+                                color: "rgba(0,0,0,0.9)"
                             }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 300 }}
@@ -211,16 +211,26 @@ const Herosection = () => {
                     <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 60 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.9, ease: "easeOut" }}
+                           viewport={{ once: true, amount: 0.5 }}
+                        >
                             <img
                                 src={Heroimg}
                                 alt="Our Story"
                                 className="rounded-2xl shadow-lg"
                             />
-                        </div>
+                        </motion.div>
 
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.9, ease: "easeOut" }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
 
                             <p className="text-sm tracking-widest text-amber-600 font-semibold mb-3">
                                 ___ OUR STORY
@@ -246,7 +256,7 @@ const Herosection = () => {
                                 Discover More
                             </button>
 
-                        </div>
+                        </motion.div>
 
                     </div>
 
