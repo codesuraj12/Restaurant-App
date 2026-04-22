@@ -14,7 +14,8 @@ const navigate = useNavigate()
   password: ""
 })
 
-const [error, setError] = useState('')
+const [error, setError] = useState("");
+ const [loading, setLoading] = useState(false)
 
 const handleChange = (e)=>{
   setFormdata({
@@ -34,6 +35,8 @@ const handleSubmit = async(e)=>{
   }
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+ setLoading(true)
+ setError("")
 
   try {
     
@@ -41,11 +44,13 @@ const res = await axios.post(`${API_URL}/api/auth/login`,
   {email,password}
 )
 
-console.log(res.data)
+
 const user = res.data.user  //ye authcontroller login mese aata he user ka data
 
 if(user.role !== "admin"){
   setError("Acess denied")
+      setLoading(false)
+      return
 }
 
 localStorage.setItem("token",res.data.token) //ye browser me data store karne ke liye hota hai, taki user login hone ke baad bar-bar login na kare.
@@ -70,7 +75,9 @@ navigate("/admindashboard/dashboard")
     setError("Invalid credentials")
     console.log(error)
   }
-
+finally {
+      setLoading(false) 
+    }
 }
 
 
@@ -91,6 +98,8 @@ navigate("/admindashboard/dashboard")
         placeholder="Admin Email"
         value={formdata.email}
         onChange={handleChange}
+        
+disabled={loading}
         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
@@ -100,6 +109,7 @@ navigate("/admindashboard/dashboard")
         placeholder="Password"
         value={formdata.password}
         onChange={handleChange}
+        disabled={loading}
         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
  {error && (
@@ -110,9 +120,13 @@ navigate("/admindashboard/dashboard")
     )}
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+        disabled={loading}
+        className={`w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300
+          ${loading 
+                ? "bg-gray-400 cursor-not-allowed" 
+                : "bg-blue-600 hover:bg-blue-700 text-white"}`}
       >
-        Login
+    {loading ? "Logging in..." : "Login"}
       </button>
 
     </form>

@@ -80,7 +80,7 @@ const Herosection = () => {
 
                                 y: -3,
                                 backgroundColor: "rgba(255,255,255,0.5)",
-                                color: "rgba(0,0,0,0.9)"
+                                color: "rgba(0,0,0,0.)"
                             }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 300 }}
@@ -187,13 +187,12 @@ const Herosection = () => {
 
                     <div className="mt-6">
                         <Link to="/foods">
-                            <motion.button
-                                whileHover={{ y: 2 }}
-                            >
-                                <button className="px-6 py-3 bg-amber-600 text-white rounded-lg cursor-pointer hover:bg-amber-700 transition">
-                                    View More
-                                </button>
-                            </motion.button>
+                             <motion.button
+      whileHover={{ y: 2 }}
+      className="px-6 py-3 bg-amber-600 text-white rounded-lg cursor-pointer hover:bg-amber-700 transition"
+    >
+      View More
+    </motion.button>
                         </Link>
                     </div>
 

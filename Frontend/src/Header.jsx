@@ -14,11 +14,11 @@ const Header = () => {
       if (window.scrollY > 50) {
 
         setScroll(true)
-        console.log('true')
+     
       }
       else {
         setScroll(false)
-        console.log('false')
+   
       }
     }
     window.addEventListener('scroll', handlescroll)
