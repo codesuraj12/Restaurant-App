@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import Carddata from '../../data.json'
 import Skeleton from '../../Skeleton'
-import Heroimg from '../../assets/herosection.jpg'
+import Heroimg from '../../assets/herosection.webp'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -44,7 +44,8 @@ const Herosection = () => {
                 <img
                     src={Heroimg}
                     alt="food"
-                    className="absolute  inset-0 w-full h-full object-cover animate-[slowZoom_10s_ease-in-out_infinite]"
+                    className="absolute  inset-0 w-full h-full object-cover "
+                    style={{ animation: "slowZoom 20s ease-out forwards" }}
                 />
                 <div className="absolute inset-0 bg-black/30"></div>
 
@@ -187,12 +188,12 @@ const Herosection = () => {
 
                     <div className="mt-6">
                         <Link to="/foods">
-                             <motion.button
-      whileHover={{ y: 2 }}
-      className="px-6 py-3 bg-amber-600 text-white rounded-lg cursor-pointer hover:bg-amber-700 transition"
-    >
-      View More
-    </motion.button>
+                            <motion.button
+                                whileHover={{ y: 2 }}
+                                className="px-6 py-3 bg-amber-600 text-white rounded-lg cursor-pointer hover:bg-amber-700 transition"
+                            >
+                                View More
+                            </motion.button>
                         </Link>
                     </div>
 
@@ -214,12 +215,12 @@ const Herosection = () => {
                             initial={{ opacity: 0, y: 60 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.9, ease: "easeOut" }}
-                           viewport={{ once: true, amount: 0.5 }}
+                            viewport={{ once: true, amount: 0.5 }}
                         >
                             <img
                                 src={Heroimg}
                                 alt="Our Story"
-                                className="rounded-2xl shadow-lg"
+                                className="rounded-2xl shadow-lg w-full h-[400px] object-cover"
                             />
                         </motion.div>
 

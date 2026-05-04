@@ -9,3 +9,17 @@
     transform: scale(1) translate(0, 0);
   }
 }
+
+@keyframes fadeIn {
+    from{ opacity: '0';
+       transform: 'translateY(16px)' 
+      }
+    to  { opacity: '1';
+       transform: 'translateY(0)' }
+  }
+  
+@keyframes progressBar {
+  0%   { width: 0%; margin-left: 0%; }
+  50%  { width: 70%; margin-left: 15%; }
+  100% { width: 0%; margin-left: 100%; }
+}
