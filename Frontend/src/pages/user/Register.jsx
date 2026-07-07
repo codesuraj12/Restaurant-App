@@ -20,6 +20,8 @@ const Register = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000" ;
 
+  console.log("API_URL:", API_URL); // Log the API URL to verify it's being read correctly
+
   const handlechange = (e) => {
     setFormdata({
       ...formdata,
