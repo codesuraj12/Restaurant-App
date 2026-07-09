@@ -3,6 +3,7 @@ import './App.css'
 import Header from './Header'
 import Footer from './Footer'
 import Logo from './assets/restaurant-logo.png'
+import Scrolltop from './pages/user/Scrolltop'
 
 import { Outlet } from 'react-router-dom'
 
@@ -37,6 +38,7 @@ if (loading) {
 
   return (
     <>
+    <Scrolltop/>
       <div 
   >
    <Header/>
