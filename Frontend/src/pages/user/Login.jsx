@@ -1,114 +1,105 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-import {  useNavigate } from 'react-router-dom';
-import { easeOut, motion } from "framer-motion";
-import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
 const Login = () => {
- const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
-
-const navigate = useNavigate()
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setError("")
 
     if (!email || !password) {
-      setError("Email and password are required");
-      return;
+      setError("Email and password are required")
+      return
     }
 
-try {
-  
-const res = await axios.post(`${API_URL}/api/auth/login`,
-  { email , password}
-)
+    setLoading(true)
 
- // save token
-    localStorage.setItem("token", res.data.token);
+    try {
+      await axios.post(
+        `${API_URL}/api/auth/login`,
+        { email, password },
+        { withCredentials: true } // sends/receives the httpOnly cookie
+      )
 
-    alert("Login successful");
-    
-    navigate("/foods");
-    setEmail('');
-      setPassword('');
-
-} catch (error) {
-     console.log(error.response?.data);
-    setError("Invalid credentials");
-}
-
-
- 
-  };
+      navigate("/foods")
+    } catch (err) {
+      console.error(err.response?.data)
+      setError(err.response?.data?.message || "Invalid credentials")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-
-
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <motion.div
-      initial={{ opacity:0, y:40 }}
-      animate ={{opacity:1, y:0}}
-      transition={{duration:0.6,ease: "easeOut"}}
-      className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8"
-      >
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 animate-fadeIn">
         <h2 className="text-2xl font-bold text-center mb-6">Welcome Back</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium mb-1">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter email"
+              autoComplete="email"
             />
           </div>
-              <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium mb-1">
+              Password
+            </label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter password"
+              autoComplete="current-password"
             />
           </div>
 
           {error && (
-            <motion.p 
-            initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            className="text-red-500 text-sm">{error}</motion.p>
+            <p className="text-red-500 text-sm animate-fadeIn">{error}</p>
           )}
 
-          <motion.button
-          whileHover={{ scale: 1.03}}
-          whileTap={{scale:0.97}}
-
+          <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2 rounded-xl"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400
+                       disabled:cursor-not-allowed transition-colors duration-200
+                       text-white font-semibold py-2 rounded-xl active:scale-[0.98]"
           >
-            Login
-          </motion.button>
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
- <p className="text-center text-sm mt-4">
-            Don’t have an account?
+          <p className="text-center text-sm mt-4">
+            Don't have an account?{" "}
             <span
               onClick={() => navigate("/register")}
-              className="text-blue-600 font-medium cursor-pointer hover:underline ml-1"
+              className="text-blue-600 font-medium cursor-pointer hover:underline"
             >
               Register here
             </span>
           </p>
-
         </form>
-      </motion.div>
+      </div>
     </div>
   )
 }
