@@ -20,7 +20,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 console.log(FRONTEND_URL)
 
 app.use(cors({
-  origin: "*"
+  origin: FRONTEND_URL,   // use the variable you already defined, not "*"
+  credentials: true       // required to allow cookies / withCredentials
 }));
 
 app.use(cookieParser())  //ye cookie hum authcontroller me use krenge

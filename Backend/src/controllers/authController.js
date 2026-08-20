@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import emailService from "../services/email.service.js"
+import { smartdevicemanagement } from "googleapis/build/src/apis/smartdevicemanagement/index.js";
 
 /** 
 * - User Registration ka logic
@@ -74,10 +75,15 @@ export const Loginuser = async (req, res) => {
       { expiresIn: "7d" }
     )
 
-    res.cookie("token", token)
+    res.cookie("token", token,{
+      httpOnly:true,
+      secure: process.env.NODE_ENV === "production",  //ye production me true hoga aur development me false hoga
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",  //ye production me none hoga aur development me lax hoga
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    })
 
-    res.status(201).json({
-      token,
+    res.status(200).json({
+     
       user: {
         id: user._id,
         name: user.name,
